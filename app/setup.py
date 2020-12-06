@@ -1,14 +1,15 @@
 import tkinter as tk
-from tkinter import filedialog, Text
+from tkinter import Grid, filedialog
 
 
 def render_root(config):
     root = tk.Tk()
     root.resizable(False, False)
+    root.iconbitmap("favicon.ico")
     root.title("Awesome tkinter")
 
     canvas = tk.Canvas(root, height=config.height,
-                       width=config.width, bg=config.fraunhofer_green)
+                       width=config.width, bg=config.background)
     canvas.pack()
 
     frame = tk.Frame(root, bg="white")
@@ -32,41 +33,44 @@ def render_buttons(config, root, frame, filename):
         label = tk.Label(frame, text=filename)
         label.pack()
 
+    buttonFrame = tk.Frame(root)
+    buttonFrame.pack(side='bottom', fill='both', padx=5, pady=5, expand=True)
+
     openFileButton = tk.Button(
-        root,
+        buttonFrame,
         text="Open File",
         padx=10,
         pady=5,
         fg="black",
-        bg=config.fraunhofer_green,
+        bg=config.background,
         command=openFile,
     )
-    openFileButton.pack()
+    openFileButton.pack(side='left')
 
     def runFile():
         global filename
         print(filename)
 
     runButton = tk.Button(
-        root,
+        buttonFrame,
         text="Run File",
         padx=10,
         pady=5,
         fg="black",
-        bg=config.fraunhofer_green,
+        bg=config.background,
         command=runFile,
     )
-    runButton.pack()
+    runButton.pack(side='left')
 
     exitButton = tk.Button(
-        root,
+        buttonFrame,
         text="Exit",
         padx=10,
         pady=5,
         fg="black",
-        bg=config.fraunhofer_green,
+        bg=config.background,
         command=root.quit,
     )
-    exitButton.pack()
+    exitButton.pack(side='right')
 
     return filename

@@ -6,3 +6,5 @@ config = {
     "background": "#179c7d",
 }
 config = SimpleNamespace(**config)
+
+filename = None

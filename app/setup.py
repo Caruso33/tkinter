@@ -1,8 +1,8 @@
 import tkinter as tk
-from tkinter import Grid, filedialog
+from tkinter import filedialog
+from .config import filename, config
 
-
-def render_root(config):
+def render_root():
     root = tk.Tk()
     root.resizable(False, False)
     root.iconbitmap("favicon.ico")
@@ -18,18 +18,17 @@ def render_root(config):
     return (root, frame)
 
 
-def render_buttons(config, root, frame, filename):
+def render_buttons(root, frame, onFileSelect):
     def openFile():
         for widget in frame.winfo_children():
             widget.destroy()
 
-        global filename
         filename = filedialog.askopenfilename(
             initialdir=".",
             title="Select xls File",
-            filetypes=(("Excel Files", "*.xls"), ("All Files", "*.*")),
+            filetypes=(("Excel Files", "*.md"), ("All Files", "*.*")),
         )
-
+        print(filename)
         label = tk.Label(frame, text=filename)
         label.pack()
 
@@ -47,10 +46,6 @@ def render_buttons(config, root, frame, filename):
     )
     openFileButton.pack(side='left')
 
-    def runFile():
-        global filename
-        print(filename)
-
     runButton = tk.Button(
         buttonFrame,
         text="Run File",
@@ -58,7 +53,7 @@ def render_buttons(config, root, frame, filename):
         pady=5,
         fg="black",
         bg=config.background,
-        command=runFile,
+        command=onFileSelect,
     )
     runButton.pack(side='left')
 
